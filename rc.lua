@@ -36,13 +36,13 @@ modkey = 'Mod4'
 layouts =
 {
     awful.layout.suit.floating,
-    awful.layout.suit.tile,
+    awful.layout.suit.tile.left,
     awful.layout.suit.magnifier,
     awful.layout.suit.max,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal
-    -- awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile,
     -- awful.layout.suit.tile.top,
     -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
@@ -236,6 +236,48 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey }, 'e',      function() awful.util.spawn(editor_cmd .. ' ' .. awful.util.getdir('config') .. '/rc.lua') end),
 
+    -- {{{ sdcv/stardict
+    awful.key({ modkey }, 'd', function ()
+        local f = io.popen('xsel -o')
+        local new_word = f:read('*a')
+        f:close()
+
+        if frame ~= nil then
+            naughty.destroy(frame)
+            frame = nil
+            if old_word == new_word then
+                return
+            end
+        end
+        old_word = new_word
+
+        local fc = ''
+        local f  = io.popen("sdcv -n --utf8-output -u 'The CMU Pronouncing Dictionary' -u 'Collins Cobuild English Dictionary' -u 'English irregular forms' -u 'English Etymology' -u '牛津英汉双解美化版' "..new_word)
+
+        for line in f:lines() do
+            fc = fc .. line .. '\n'
+        end
+        f:close()
+        frame = naughty.notify({ text = fc, timeout = 10, width = 480 })
+    end),
+
+    awful.key({ modkey, 'Shift' }, 'd', function ()
+        awful.prompt.run({prompt = 'Dict: '}, mypromptbox[mouse.screen].widget, function(cin_word)
+            naughty.destroy(frame)
+            if cin_word == '' then
+                return
+            end
+
+            local fc = ''
+            local f  = io.popen("sdcv -n --utf8-output -u 'The CMU Pronouncing Dictionary' -u 'Collins Cobuild English Dictionary' -u 'English irregular forms' -u 'English Etymology' -u '牛津英汉双解美化版' "..cin_word)
+            for line in f:lines() do
+                fc = fc .. line .. '\n'
+            end
+            f:close()
+            frame = naughty.notify({ text = fc, timeout = 10, width = 480 })
+        end, nil, awful.util.getdir('cache')..'/dict')
+    end),
+
 
     awful.key({ modkey,           }, 'Left',   awful.tag.viewprev       ),
     awful.key({ modkey,           }, 'Right',  awful.tag.viewnext       ),
@@ -266,6 +308,28 @@ globalkeys = awful.util.table.join(
                 client.focus:raise()
             end
         end),
+
+    awful.key({ 'Mod1' }, 'h', function() awful.client.focus.bydirection('left') end),
+    awful.key({ 'Mod1' }, 'j', function() awful.client.focus.bydirection('down') end),
+    awful.key({ 'Mod1' }, 'k', function() awful.client.focus.bydirection('up') end),
+    awful.key({ 'Mod1' }, 'l', function() awful.client.focus.bydirection('right') end),
+
+    awful.key({ 'Mod1' }, 'p', function()
+        awful.client.focus.byidx(-1)
+        if client.focus then client.focus:raise() end
+    end),
+    awful.key({ 'Mod1' }, 'n', function()
+        awful.client.focus.byidx(1)
+        if client.focus then client.focus:raise() end
+    end),
+
+    awful.key({ 'Mod1', 'Shift' }, 'h', function() awful.client.swap.bydirection('left') end),
+    awful.key({ 'Mod1', 'Shift' }, 'j', function() awful.client.swap.bydirection('down') end),
+    awful.key({ 'Mod1', 'Shift' }, 'k', function() awful.client.swap.bydirection('up') end),
+    awful.key({ 'Mod1', 'Shift' }, 'l', function() awful.client.swap.bydirection('right') end),
+
+    awful.key({ 'Mod1', 'Shift' }, 'p', function() awful.client.swap.byidx(-1) end),
+    awful.key({ 'Mod1', 'Shift' }, 'n', function() awful.client.swap.byidx(1) end),
 
     -- Standard program
     awful.key({ modkey,           }, 'Return', function () awful.util.spawn(terminal) end),
@@ -363,6 +427,7 @@ awful.rules.rules = {
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      focus = true,
+                     size_hints_honor = false,
                      keys = clientkeys,
                      buttons = clientbuttons } },
     { rule = { class = 'MPlayer' },
@@ -375,7 +440,7 @@ awful.rules.rules = {
     { rule = { class = 'Google-chrome'},
       properties = { tag = tags[1][2] } },
     { rule = { class = 'Pidgin'},
-      properties = { tag = tags[1][4] } },
+      properties = { tag = tags[1][4], floating = true } },
 }
 -- }}}
 
