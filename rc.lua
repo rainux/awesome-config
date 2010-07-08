@@ -18,6 +18,8 @@ require('calendar2')
 -- Themes define colours, icons, and wallpapers
 beautiful.init(awful.util.getdir('config')..'/'..'themes/default/theme.lua')
 
+require('mocp')
+
 -- This is used later as the default terminal and editor to run.
 terminal = 'terminator'
 editor = os.getenv('EDITOR') or 'editor'
@@ -119,6 +121,9 @@ vicious.register(memwidget, vicious.widgets.mem, '$1% ($2MB/$3MB)', 13)
 -- memwidget:set_gradient_colors({ '#AECF96', '#88A175', '#FF5656' })
 -- vicious.register(memwidget, vicious.widgets.mem, '$1', 13)
 
+-- mocp widget
+mocpwidget = mocp.init({ max_chars = 50, width = 420 })
+
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = 'right' })
 calendar2.addCalendarToWidget(mytextclock, markup.fg('green', '%s'))
@@ -206,6 +211,7 @@ for s = 1, screen.count() do
         cpuwidget,
         separator,
         obvious.volume_alsa(),
+        mocpwidget,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
