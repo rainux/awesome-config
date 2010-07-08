@@ -11,10 +11,12 @@ require('vicious')
 require('obvious.volume_alsa')
 
 require('aweror')
+require('markup')
+require('calendar2')
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init('/usr/share/awesome/themes/default/theme.lua')
+beautiful.init(awful.util.getdir('config')..'/'..'themes/default/theme.lua')
 
 -- This is used later as the default terminal and editor to run.
 terminal = 'terminator'
@@ -119,6 +121,7 @@ vicious.register(memwidget, vicious.widgets.mem, '$1% ($2MB/$3MB)', 13)
 
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = 'right' })
+calendar2.addCalendarToWidget(mytextclock, markup.fg('green', '%s'))
 
 -- Create a systray
 mysystray = widget({ type = 'systray' })
