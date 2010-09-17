@@ -53,9 +53,9 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-    names  = { 'main', 'www', 'www', 'im', 5, 6, 7, 8, 9 },
+    names  = { 'main', 'www', 'www', 'terminal', 'im', 6, 7, 8, 9 },
     layouts = {
-        layouts[2], layouts[4], layouts[4], layouts[1], layouts[1],
+        layouts[2], layouts[4], layouts[4], layouts[2], layouts[1],
         layouts[1], layouts[1], layouts[1], layouts[1]
     }
 }
@@ -92,7 +92,7 @@ separator.text = ' || '
 
 -- Network usage widget
 netwidget = widget({ type = 'textbox' })
-vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">${eth0 down_kb}</span> <span color="#7F9F7F">${eth0 up_kb}</span>', 3)
+vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">${eth1 down_kb}</span> <span color="#7F9F7F">${eth1 up_kb}</span>', 3)
 
 -- CPU usage widget (textbox)
 cpuwidget = widget({ type = 'textbox' })
@@ -437,10 +437,16 @@ awful.rules.rules = {
     { rule = { class = 'gimp' },
       properties = { floating = true } },
 
-    { rule = { class = 'Google-chrome'},
-      properties = { tag = tags[1][2] } },
+    { rule = { name = 'Options' },
+      properties = { floating = true } },
+
+    { rule = { name = 'Settings' },
+      properties = { floating = true } },
+
+    -- { rule = { class = 'Google-chrome'},
+      -- properties = { tag = tags[1][2] } },
     { rule = { class = 'Pidgin'},
-      properties = { tag = tags[1][4], floating = true } },
+      properties = { tag = tags[1][5], floating = true } },
 }
 -- }}}
 
@@ -450,13 +456,13 @@ client.add_signal('manage', function (c, startup)
     -- Add a titlebar
     -- awful.titlebar.add(c, { modkey = modkey })
 
-    -- Enable sloppy focus
-    c:add_signal('mouse::enter', function(c)
-        if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
-            and awful.client.focus.filter(c) then
-            client.focus = c
-        end
-    end)
+    -- -- Enable sloppy focus
+    -- c:add_signal('mouse::enter', function(c)
+        -- if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
+            -- and awful.client.focus.filter(c) then
+            -- client.focus = c
+        -- end
+    -- end)
 
     if not startup then
         -- Set the windows at the slave,
@@ -478,6 +484,7 @@ client.add_signal('unfocus', function(c) c.border_color = beautiful.border_norma
 
 awful.util.spawn('gnome-settings-daemon')
 awful.util.spawn('ibus-daemon --xim')
+awful.util.spawn('nm-applet')
 awful.util.spawn('pidgin')
 
 
