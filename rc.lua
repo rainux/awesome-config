@@ -56,7 +56,7 @@ tags = {
     names  = { 'main', 'www', 'www', 'terminal', 'im', 6, 7, 8, 9 },
     layouts = {
         layouts[2], layouts[4], layouts[4], layouts[2], layouts[1],
-        layouts[1], layouts[1], layouts[1], layouts[1]
+        layouts[2], layouts[2], layouts[2], layouts[2]
     }
 }
 for s = 1, screen.count() do
@@ -447,6 +447,9 @@ awful.rules.rules = {
       -- properties = { tag = tags[1][2] } },
     { rule = { class = 'Pidgin'},
       properties = { tag = tags[1][5], floating = true } },
+
+    { rule = { class = 'Stardict'},
+      properties = { tag = tags[1][6] } },
 }
 -- }}}
 

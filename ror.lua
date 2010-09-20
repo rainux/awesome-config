@@ -6,4 +6,5 @@ table5 = {
     ['t'] = {'gnome-terminal --tab --active --tab --tab --tab --tab --tab --tab --tab --tab --tab', 'Gnome-terminal'},
     ['v'] = {'gvim', 'GVIM', true},
     ['p'] = {'pidgin', 'Pidgin'},
+    ['s'] = {'stardict', 'Stardict'},
 }
