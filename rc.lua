@@ -430,11 +430,16 @@ awful.rules.rules = {
                      size_hints_honor = false,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = 'MPlayer' },
+    { rule = { name = 'MPlayer' },
       properties = { floating = true } },
+
     { rule = { class = 'pinentry' },
       properties = { floating = true } },
+
     { rule = { class = 'gimp' },
+      properties = { floating = true } },
+
+    { rule = { name = 'Krusader' },
       properties = { floating = true } },
 
     { rule = { name = 'Options' },
@@ -443,8 +448,6 @@ awful.rules.rules = {
     { rule = { name = 'Settings' },
       properties = { floating = true } },
 
-    -- { rule = { class = 'Google-chrome'},
-      -- properties = { tag = tags[1][2] } },
     { rule = { class = 'Pidgin'},
       properties = { tag = tags[1][5], floating = true } },
 
@@ -459,7 +462,7 @@ client.add_signal('manage', function (c, startup)
     -- Add a titlebar
     -- awful.titlebar.add(c, { modkey = modkey })
 
-    -- -- Enable sloppy focus
+    -- Enable sloppy focus
     -- c:add_signal('mouse::enter', function(c)
         -- if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
             -- and awful.client.focus.filter(c) then
