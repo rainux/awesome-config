@@ -439,7 +439,7 @@ awful.rules.rules = {
     { rule = { class = 'gimp' },
       properties = { floating = true } },
 
-    { rule = { name = 'Krusader' },
+    { rule = { class = 'Krusader' },
       properties = { floating = true } },
 
     { rule = { name = 'Options' },
