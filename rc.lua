@@ -448,11 +448,17 @@ awful.rules.rules = {
     { rule = { name = 'Settings' },
       properties = { floating = true } },
 
+    { rule = { name = 'Preferences' },
+      properties = { floating = true } },
+
     { rule = { class = 'Pidgin'},
       properties = { tag = tags[1][5], floating = true } },
 
-    { rule = { class = 'Stardict'},
+    { rule = { class = 'Krusader'},
       properties = { tag = tags[1][6] } },
+
+    { rule = { class = 'Stardict'},
+      properties = { tag = tags[1][7] } },
 }
 -- }}}
 
@@ -492,6 +498,7 @@ awful.util.spawn('gnome-settings-daemon')
 awful.util.spawn('ibus-daemon --xim')
 awful.util.spawn('nm-applet')
 awful.util.spawn('pidgin')
+awful.util.spawn('gnome-terminal --tab --active --tab --tab --tab --tab --tab --tab --tab --tab --tab')
 
 
 --- Spawns cmd if no client can be found matching properties

@@ -7,4 +7,5 @@ table5 = {
     ['v'] = {'gvim', 'GVIM', true},
     ['p'] = {'pidgin', 'Pidgin'},
     ['s'] = {'stardict', 'Stardict'},
+    ['u'] = {'krusader', 'Krusader'},
 }
