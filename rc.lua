@@ -459,6 +459,9 @@ awful.rules.rules = {
 
     { rule = { class = 'Stardict'},
       properties = { tag = tags[1][7] } },
+
+    { rule = { class = 'Gnome-terminal'},
+      properties = { tag = tags[1][4] } },
 }
 -- }}}
 
