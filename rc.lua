@@ -55,7 +55,7 @@ layouts =
 tags = {
     names  = { 'main', 'www', 'www', 'terminal', 'im', 6, 7, 8, 9 },
     layouts = {
-        layouts[2], layouts[4], layouts[4], layouts[2], layouts[1],
+        layouts[2], layouts[4], layouts[4], layouts[4], layouts[1],
         layouts[2], layouts[2], layouts[2], layouts[2]
     }
 }
@@ -454,6 +454,9 @@ awful.rules.rules = {
     { rule = { class = 'Pidgin'},
       properties = { tag = tags[1][5], floating = true } },
 
+    { rule = { class = 'Skype'},
+      properties = { tag = tags[1][5], floating = true } },
+
     { rule = { class = 'Krusader'},
       properties = { tag = tags[1][6] } },
 
@@ -497,11 +500,12 @@ client.add_signal('unfocus', function(c) c.border_color = beautiful.border_norma
 -- }}}
 
 
-awful.util.spawn('gnome-settings-daemon')
+-- awful.util.spawn('gnome-settings-daemon')
 awful.util.spawn('ibus-daemon --xim')
-awful.util.spawn('nm-applet')
-awful.util.spawn('pidgin')
-awful.util.spawn('gnome-terminal --tab --active --tab --tab --tab --tab --tab --tab --tab --tab --tab')
+awful.util.spawn('dropboxd')
+-- awful.util.spawn('nm-applet')
+-- awful.util.spawn('pidgin')
+awful.util.spawn('/home/rainux/bin/terminal')
 
 
 --- Spawns cmd if no client can be found matching properties
