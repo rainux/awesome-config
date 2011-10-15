@@ -53,10 +53,10 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-    names  = { 'main', 'www', 'www', 'terminal', 'im', 6, 7, 8, 9 },
+    names  = { 'main', 'www', 'www', 'terminal', 'im', 'files', 'dict', 'download', 9 },
     layouts = {
         layouts[2], layouts[4], layouts[4], layouts[4], layouts[1],
-        layouts[2], layouts[2], layouts[2], layouts[2]
+        layouts[1], layouts[4], layouts[4], layouts[4]
     }
 }
 for s = 1, screen.count() do
@@ -279,8 +279,9 @@ globalkeys = awful.util.table.join(
     end),
 
 
-    awful.key({ modkey,           }, 'Left',   awful.tag.viewprev       ),
-    awful.key({ modkey,           }, 'Right',  awful.tag.viewnext       ),
+    awful.key({ modkey, 'Control' }, 'w', function ()
+        mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
+    end),
     awful.key({ modkey,           }, 'Escape', awful.tag.history.restore),
 
     awful.key({ modkey,           }, 'j',
@@ -313,6 +314,13 @@ globalkeys = awful.util.table.join(
     awful.key({ 'Mod1' }, 'j', function() awful.client.focus.bydirection('down') end),
     awful.key({ 'Mod1' }, 'k', function() awful.client.focus.bydirection('up') end),
     awful.key({ 'Mod1' }, 'l', function() awful.client.focus.bydirection('right') end),
+
+    awful.key({ modkey }, 'Next',  function () awful.client.moveresize( 20,  20, -40, -40) end),
+    awful.key({ modkey }, 'Prior', function () awful.client.moveresize(-20, -20,  40,  40) end),
+    awful.key({ modkey }, 'Down',  function () awful.client.moveresize(  0,  20,   0,   0) end),
+    awful.key({ modkey }, 'Up',    function () awful.client.moveresize(  0, -20,   0,   0) end),
+    awful.key({ modkey }, 'Left',  function () awful.client.moveresize(-20,   0,   0,   0) end),
+    awful.key({ modkey }, 'Right', function () awful.client.moveresize( 20,   0,   0,   0) end),
 
     awful.key({ 'Mod1' }, 'p', function()
         awful.client.focus.byidx(-1)
@@ -427,6 +435,8 @@ awful.rules.rules = {
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      focus = true,
+                     maximized_vertical   = false,
+                     maximized_horizontal = false,
                      size_hints_honor = false,
                      keys = clientkeys,
                      buttons = clientbuttons } },
@@ -465,6 +475,15 @@ awful.rules.rules = {
 
     { rule = { class = 'Gnome-terminal'},
       properties = { tag = tags[1][4] } },
+
+    { rule = { class = 'jd-Main', instance = 'sun-awt-X11-XFramePeer' },
+      properties = { tag = tags[1][8] } },
+
+    { rule = { class = 'jd-Main', instance = 'sun-awt-X11-XDialogPeer' },
+      properties = { tag = tags[1][8], switchtotag = true } },
+
+    { rule = { class = 'Transmission-gtk' },
+      properties = { tag = tags[1][8] } },
 }
 -- }}}
 
