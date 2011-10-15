@@ -480,7 +480,12 @@ awful.rules.rules = {
       properties = { tag = tags[1][8] } },
 
     { rule = { class = 'jd-Main', instance = 'sun-awt-X11-XDialogPeer' },
-      properties = { tag = tags[1][8], switchtotag = true } },
+      callback = function(c)
+          awful.client.movetotag(awful.tag.selected(), c)
+          local x = (screen[c.screen].geometry.width - c:geometry().width) / 2
+          local y = (screen[c.screen].geometry.height - c:geometry().height) / 2
+          c:geometry({ x = x, y = y })
+      end },
 
     { rule = { class = 'Transmission-gtk' },
       properties = { tag = tags[1][8] } },
