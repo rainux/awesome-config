@@ -14,7 +14,8 @@ module('aweror')
 -- If such a client can be found, pop to first tag where it is visible, and give it focus
 -- @param cmd the command to execute
 -- @param properties a table of properties to match against clients.  Possible entries: any properties of the client object
-function run_or_raise(cmd, properties)
+-- @param raise control whether to or not to raise the client
+function run_or_raise(cmd, properties, raise)
     local clients = client.get()
     local focused = awful.client.next(0)
     local findex = 0
@@ -31,23 +32,25 @@ function run_or_raise(cmd, properties)
         end
     end
     if n > 0 then
-        local c = matched_clients[1]
-        -- if the focused window matched switch focus to next in list
-        if 0 < findex and findex < n then
-            c = matched_clients[findex+1]
+        if raise then
+            local c = matched_clients[1]
+            -- if the focused window matched switch focus to next in list
+            if 0 < findex and findex < n then
+                c = matched_clients[findex+1]
+            end
+            local ctags = c:tags()
+            if table.getn(ctags) == 0 then
+                -- ctags is empty, show client on current tag
+                local curtag = awful.tag.selected()
+                awful.client.movetotag(curtag, c)
+            else
+                -- Otherwise, pop to first tag client is visible on
+                awful.tag.viewonly(ctags[1])
+            end
+            -- And then focus the client
+            client.focus = c
+            c:raise()
         end
-        local ctags = c:tags()
-        if table.getn(ctags) == 0 then
-            -- ctags is empty, show client on current tag
-            local curtag = awful.tag.selected()
-            awful.client.movetotag(curtag, c)
-        else
-            -- Otherwise, pop to first tag client is visible on
-            awful.tag.viewonly(ctags[1])
-        end
-        -- And then focus the client
-        client.focus = c
-        c:raise()
         return
     end
     awful.util.spawn(cmd)
@@ -73,7 +76,7 @@ function genfun(t3)
     end
     table1[s1]=rule
     return function()
-        run_or_raise(cmd,table1)
+        run_or_raise(cmd,table1,true)
     end
 end
 function genkeys(mod1)
