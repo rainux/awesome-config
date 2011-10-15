@@ -10,6 +10,10 @@ local USE_T = true
 
 module('aweror')
 
+--- Spawns cmd if no client can be found matching properties
+-- If such a client can be found, pop to first tag where it is visible, and give it focus
+-- @param cmd the command to execute
+-- @param properties a table of properties to match against clients.  Possible entries: any properties of the client object
 function run_or_raise(cmd, properties)
     local clients = client.get()
     local focused = awful.client.next(0)
