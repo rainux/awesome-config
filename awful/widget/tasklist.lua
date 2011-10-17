@@ -27,14 +27,24 @@ label = {}
 
 local function tasklist_update(w, buttons, label, data, widgets)
     local clients = capi.client.get()
-    local shownclients = {}
+    local shown_clients_part1 = {}
+    local shown_clients_part2 = {}
+    local is_focus_found = false
     for k, c in ipairs(clients) do
         if not (c.skip_taskbar or c.hidden
             or c.type == "splash" or c.type == "dock" or c.type == "desktop") then
-            table.insert(shownclients, c)
+
+            -- Ensure focused client at the beginning of the list,
+            -- and keep remain clients in original order.
+            if is_focus_found or c == capi.client.focus then
+                is_focus_found = true
+                table.insert(shown_clients_part2, c)
+            else
+                table.insert(shown_clients_part1, c)
+            end
         end
     end
-    clients = shownclients
+    clients = util.table.join(shown_clients_part2, shown_clients_part1)
 
     common.list_update(w, buttons, label, data, widgets, clients)
 end
@@ -118,8 +128,6 @@ local function widget_tasklist_label_common(c, args)
     elseif c.minimized and fg_minimize and bg_minimize then
         bg = bg_minimize
         text = text .. "<span color='"..util.color_strip_alpha(fg_minimize).."'>"..name.."</span>"
-    else
-        text = text .. name
     end
     text = text .. "</span>"
     return text, bg, status_image, c.icon

@@ -161,7 +161,6 @@ mytaglist.buttons = awful.util.table.join(
                     awful.button({ }, 4, awful.tag.viewnext),
                     awful.button({ }, 5, awful.tag.viewprev)
                     )
-mycurrenttask = {}
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
                      awful.button({ }, 1, function (c)
@@ -202,10 +201,6 @@ for s = 1, screen.count() do
     -- Create a taglist widget
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist.buttons)
 
-    mycurrenttask[s] = awful.widget.tasklist(function(c)
-                                              return awful.widget.tasklist.label.focused(c, s)
-                                          end)
-
     -- Create a tasklist widget
     mytasklist[s] = awful.widget.tasklist(function(c)
                                               return awful.widget.tasklist.label.currenttags(c, s)
@@ -237,7 +232,7 @@ for s = 1, screen.count() do
         cmus_widget,
         s == 1 and mysystray or nil,
         mypromptbox[s],
-        mycurrenttask[s],
+        mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
     mywibox2[s].widgets = {
