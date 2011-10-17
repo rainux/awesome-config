@@ -121,6 +121,8 @@ vicious.register(memwidget, vicious.widgets.mem, '$1% ($2MB/$3MB)', 13)
 -- memwidget:set_gradient_colors({ '#AECF96', '#88A175', '#FF5656' })
 -- vicious.register(memwidget, vicious.widgets.mem, '$1', 13)
 
+volumewidget = obvious.volume_alsa():set_layout(awful.widget.layout.horizontal.rightleft).widget
+
 -- mocp widget
 mocpwidget = mocp.init({ max_chars = 50, width = 420 })
 
@@ -133,6 +135,7 @@ mysystray = widget({ type = 'systray' })
 
 -- Create a wibox for each screen and add it
 mywibox = {}
+mywibox2 = {}
 mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
@@ -144,6 +147,7 @@ mytaglist.buttons = awful.util.table.join(
                     awful.button({ }, 4, awful.tag.viewnext),
                     awful.button({ }, 5, awful.tag.viewprev)
                     )
+mycurrenttask = {}
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
                      awful.button({ }, 1, function (c)
@@ -184,6 +188,10 @@ for s = 1, screen.count() do
     -- Create a taglist widget
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist.buttons)
 
+    mycurrenttask[s] = awful.widget.tasklist(function(c)
+                                              return awful.widget.tasklist.label.focused(c, s)
+                                          end)
+
     -- Create a tasklist widget
     mytasklist[s] = awful.widget.tasklist(function(c)
                                               return awful.widget.tasklist.label.currenttags(c, s)
@@ -191,14 +199,12 @@ for s = 1, screen.count() do
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = 'top', screen = s })
+    mywibox2[s] = awful.wibox({ position = 'left', screen = s })
 
     -- Add widgets to the wibox - order matters
     mywibox[s].widgets = {
         {
             mylauncher,
-            mytaglist[s],
-            mypromptbox[s],
-            separator,
             layout = awful.widget.layout.horizontal.leftright
         },
         mylayoutbox[s],
@@ -210,11 +216,16 @@ for s = 1, screen.count() do
         separator,
         cpuwidget,
         separator,
-        obvious.volume_alsa(),
+        volumewidget,
         mocpwidget,
         s == 1 and mysystray or nil,
-        mytasklist[s],
+        mypromptbox[s],
+        mycurrenttask[s],
         layout = awful.widget.layout.horizontal.rightleft
+    }
+    mywibox2[s].widgets = {
+        mytaglist[s],
+        layout = awful.widget.layout.horizontal.leftright
     }
 end
 -- }}}
@@ -281,6 +292,7 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey, 'Control' }, 'w', function ()
         mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
+        mywibox2[mouse.screen].visible = not mywibox2[mouse.screen].visible
     end),
     awful.key({ modkey,           }, 'Escape', awful.tag.history.restore),
 
