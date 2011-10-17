@@ -89,7 +89,7 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 space       = widget({ type = 'textbox' })
 separator   = widget({ type = 'textbox' })
 space.text = ' '
-separator.text = ' || '
+separator.text = '⋮'
 
 -- Network usage widget
 netwidget = widget({ type = 'textbox' })
@@ -230,7 +230,9 @@ for s = 1, screen.count() do
         volumewidget,
         separator,
         cmus_widget,
+        separator,
         s == 1 and mysystray or nil,
+        separator,
         mypromptbox[s],
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
