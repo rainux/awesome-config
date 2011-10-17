@@ -213,7 +213,9 @@ for s = 1, screen.count() do
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = 'top', screen = s })
-    mywibox2[s] = awful.wibox({ position = 'left', screen = s })
+    mywibox2[s] = awful.wibox({ position = 'bottom', screen = s, width = 600 })
+    awful.wibox.align(mywibox2[s], 'right', s)
+    awful.widget.layout.margins[mytaglist[s]] = { left = 15 }
 
     -- Add widgets to the wibox - order matters
     mywibox[s].widgets = {
