@@ -9,6 +9,7 @@ require('naughty')
 
 require('vicious')
 require('obvious.volume_alsa')
+require('revelation')
 
 require('aweror')
 require('markup')
@@ -245,7 +246,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, 'Up',     function() obvious.volume_alsa.raise(0, 'Master', 2) end),
     awful.key({ modkey }, 'Down',   function() obvious.volume_alsa.lower(0, 'Master', 2) end),
 
-    awful.key({ modkey }, 'e',      function() awful.util.spawn(editor_cmd .. ' ' .. awful.util.getdir('config') .. '/rc.lua') end),
+    awful.key({ modkey, 'Control' }, 'e', function() awful.util.spawn(editor_cmd .. ' ' .. awful.util.getdir('config') .. '/rc.lua') end),
+    awful.key({ modkey }, 'e', revelation),
 
     -- {{{ sdcv/stardict
     awful.key({ modkey }, 'd', function ()
