@@ -96,31 +96,31 @@ netwidget = widget({ type = 'textbox' })
 vicious.register(netwidget, vicious.widgets.net, '<span color="#CC9393">${eth0 down_kb}</span> <span color="#7F9F7F">${eth0 up_kb}</span>', 3)
 
 -- CPU usage widget (textbox)
-cpuwidget = widget({ type = 'textbox' })
-vicious.register(cpuwidget, vicious.widgets.cpu, '$1%')
+-- cpuwidget = widget({ type = 'textbox' })
+-- vicious.register(cpuwidget, vicious.widgets.cpu, '$1%')
 
 -- CPU usage widget (graph)
--- cpuwidget = awful.widget.graph()
--- cpuwidget:set_width(50)
--- cpuwidget:set_background_color('#494B4F')
--- cpuwidget:set_color('#FF5656')
--- cpuwidget:set_gradient_colors({ '#FF5656', '#88A175', '#AECF96' })
--- vicious.register(cpuwidget, vicious.widgets.cpu, '$1')
+cpuwidget = awful.widget.graph()
+cpuwidget:set_width(60)
+cpuwidget:set_height(30)
+cpuwidget:set_background_color('#494B4F')
+cpuwidget:set_color('#FF5656')
+cpuwidget:set_gradient_colors({ '#FF5656', '#88A175', '#AECF96' })
+vicious.register(cpuwidget, vicious.widgets.cpu, '$1')
 
 -- Memory usage widget (textbox)
-memwidget = widget({ type = 'textbox' })
-vicious.register(memwidget, vicious.widgets.mem, '$1% ($2MB/$3MB)', 13)
+-- memwidget = widget({ type = 'textbox' })
+-- vicious.register(memwidget, vicious.widgets.mem, '$1% ($2MB/$3MB)', 13)
 
 -- Memory usage widget (graph)
--- memwidget = awful.widget.progressbar()
--- memwidget:set_width(8)
--- memwidget:set_height(10)
--- memwidget:set_vertical(true)
--- memwidget:set_background_color('#494B4F')
--- memwidget:set_border_color(nil)
--- memwidget:set_color('#AECF96')
--- memwidget:set_gradient_colors({ '#AECF96', '#88A175', '#FF5656' })
--- vicious.register(memwidget, vicious.widgets.mem, '$1', 13)
+memwidget = awful.widget.progressbar()
+memwidget:set_width(100)
+memwidget:set_height(30)
+memwidget:set_background_color('#494B4F')
+memwidget:set_border_color(nil)
+memwidget:set_color('#AECF96')
+memwidget:set_gradient_colors({ '#AECF96', '#88A175', '#FF5656' })
+vicious.register(memwidget, vicious.widgets.mem, "$1", 13)
 
 volumewidget = obvious.volume_alsa():set_layout(awful.widget.layout.horizontal.rightleft).widget
 
@@ -226,9 +226,9 @@ for s = 1, screen.count() do
         separator,
         netwidget,
         separator,
-        memwidget,
+        memwidget.widget,
         separator,
-        cpuwidget,
+        cpuwidget.widget,
         separator,
         volumewidget,
         separator,
