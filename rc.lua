@@ -519,12 +519,19 @@ client.add_signal('manage', function (c, startup)
     end
 end)
 
-client.add_signal('focus', function(c) c.border_color = beautiful.border_focus end)
-client.add_signal('unfocus', function(c) c.border_color = beautiful.border_normal end)
+client.add_signal('focus', function(c)
+    c.border_color = beautiful.border_focus
+    c.opacity = 0.9
+end)
+client.add_signal('unfocus', function(c)
+    c.border_color = beautiful.border_normal
+    c.opacity = 0.5
+end)
 -- }}}
 
 
 -- awful.util.spawn('gnome-settings-daemon')
+awful.util.spawn('xcompmgr -c -F')
 awful.util.spawn('ibus-daemon --xim')
 awful.util.spawn('dropboxd')
 -- awful.util.spawn('nm-applet')
