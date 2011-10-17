@@ -124,8 +124,21 @@ vicious.register(memwidget, vicious.widgets.mem, '$1% ($2MB/$3MB)', 13)
 
 volumewidget = obvious.volume_alsa():set_layout(awful.widget.layout.horizontal.rightleft).widget
 
--- mocp widget
-mocpwidget = mocp.init({ max_chars = 50, width = 420 })
+-- {{{ Cmus info
+musicicon = widget({ type = 'imagebox' })
+musicicon.image = image(beautiful.widget_music)
+-- Initialize widget
+cmus_widget = widget({ type = 'textbox' })
+-- Register widget
+vicious.register(cmus_widget, vicious.widgets.cmus,
+    function (widget, args)
+        if args['{status}'] == 'Stopped' then
+            return nil
+        else
+            return args['{status}']..': '.. args['{artist}']..' - '.. args['{title}']
+        end
+    end, 7)
+--}}}
 
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = 'right' })
@@ -218,7 +231,8 @@ for s = 1, screen.count() do
         cpuwidget,
         separator,
         volumewidget,
-        mocpwidget,
+        separator,
+        cmus_widget,
         s == 1 and mysystray or nil,
         mypromptbox[s],
         mycurrenttask[s],
