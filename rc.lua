@@ -209,7 +209,7 @@ for s = 1, screen.count() do
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = 'top', screen = s })
-    mywibox2[s] = awful.wibox({ position = 'bottom', screen = s, width = 600 })
+    mywibox2[s] = awful.wibox({ position = 'bottom', screen = s })
     awful.wibox.align(mywibox2[s], 'right', s)
     awful.widget.layout.margins[mytaglist[s]] = { left = 15 }
 
@@ -232,15 +232,15 @@ for s = 1, screen.count() do
         separator,
         cmus_widget,
         separator,
-        s == 1 and mysystray or nil,
-        separator,
         mypromptbox[s],
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
     mywibox2[s].widgets = {
+        mysystray,
+        separator,
         mytaglist[s],
-        layout = awful.widget.layout.horizontal.leftright
+        layout = awful.widget.layout.horizontal.rightleft
     }
 end
 -- }}}

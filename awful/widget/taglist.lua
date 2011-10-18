@@ -33,6 +33,7 @@ local function taglist_update (screen, w, label, buttons, data, widgets)
             table.insert(showntags, t)
         end
     end
+    showntags = util.table.reverse(showntags)
     common.list_update(w, buttons, label, data, widgets, showntags)
 end
 
@@ -49,7 +50,7 @@ end
 -- @param buttons A table with buttons binding to set.
 function new(screen, label, buttons)
     local w = {
-        layout = layout.horizontal.leftright
+        layout = layout.horizontal.rightleft
     }
     local widgets = { }
     widgets.imagebox = { }
