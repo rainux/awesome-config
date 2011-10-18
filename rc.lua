@@ -14,6 +14,7 @@ require('revelation')
 require('aweror')
 require('markup')
 require('calendar2')
+require('util')
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
@@ -557,15 +558,10 @@ end)
 -- }}}
 
 
--- awful.util.spawn('gnome-settings-daemon')
-awful.util.spawn('xcompmgr -c -F')
-awful.util.spawn('ibus-daemon --xim')
-awful.util.spawn('dropboxd')
--- awful.util.spawn('nm-applet')
--- awful.util.spawn('pidgin')
-delayed_startup = timer { timeout = 1 }
-delayed_startup:add_signal('timeout', function()
-    aweror.run_or_raise('/home/rainux/bin/terminal', { class = 'Gnome-terminal' }, false)
-    delayed_startup:stop()
-end)
-delayed_startup:start()
+-- util.run_once('gnome-settings-daemon')
+util.run_once('xcompmgr', 'xcompmgr -c -F')
+util.run_once('ibus-daemon', 'ibus-daemon --xim')
+util.run_once('dropbox', 'dropboxd')
+-- util.run_once('nm-applet')
+-- util.run_once('pidgin')
+util.run_once('gnome-terminal', '/home/rainux/bin/terminal')
