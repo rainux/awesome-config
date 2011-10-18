@@ -279,13 +279,13 @@ globalkeys = awful.util.table.join(
         old_word = new_word
 
         local fc = ''
-        local f  = io.popen("sdcv -n --utf8-output -u 'The CMU Pronouncing Dictionary' -u 'Collins Cobuild English Dictionary' -u 'English irregular forms' -u 'English Etymology' -u '牛津英汉双解美化版' "..new_word)
+        local f  = io.popen("sdcv -n --utf8-output -u 'The CMU Pronouncing Dictionary' -u 'Collins Cobuild English Dictionary' -u '牛津英汉双解美化版' "..new_word)
 
         for line in f:lines() do
             fc = fc .. line .. '\n'
         end
         f:close()
-        frame = naughty.notify({ text = fc, timeout = 10, width = 480 })
+        frame = naughty.notify({ text = fc, timeout = 10, width = 640 })
     end),
 
     awful.key({ modkey, 'Shift' }, 'd', function ()
@@ -296,12 +296,12 @@ globalkeys = awful.util.table.join(
             end
 
             local fc = ''
-            local f  = io.popen("sdcv -n --utf8-output -u 'The CMU Pronouncing Dictionary' -u 'Collins Cobuild English Dictionary' -u 'English irregular forms' -u 'English Etymology' -u '牛津英汉双解美化版' "..cin_word)
+            local f  = io.popen("sdcv -n --utf8-output -u 'The CMU Pronouncing Dictionary' -u 'Collins Cobuild English Dictionary' -u '牛津英汉双解美化版' "..cin_word)
             for line in f:lines() do
                 fc = fc .. line .. '\n'
             end
             f:close()
-            frame = naughty.notify({ text = fc, timeout = 10, width = 480 })
+            frame = naughty.notify({ text = fc, timeout = 10, width = 640 })
         end, nil, awful.util.getdir('cache')..'/dict')
     end),
 
