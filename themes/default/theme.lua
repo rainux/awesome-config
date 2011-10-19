@@ -41,8 +41,8 @@ theme.tasklist_floating_icon = "/usr/share/awesome/themes/default/tasklist/float
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = "/usr/share/awesome/themes/default/submenu.png"
-theme.menu_height = "15"
-theme.menu_width  = "100"
+theme.menu_height = "32"
+theme.menu_width  = "200"
 
 -- You can add as many variables as
 -- you wish and access them by using
