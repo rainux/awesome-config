@@ -55,10 +55,10 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-    names  = { 'main', 'www', 'www', 'terminal', 'im', 'files', 'dict', 'download', 9 },
+    names  = { 'main', 'www', 'www', 'terminal', 'im', 'files', 'nana', 'download', 9, 'dict' },
     layouts = {
         layouts[2], layouts[4], layouts[4], layouts[4], layouts[1],
-        layouts[1], layouts[4], layouts[4], layouts[4]
+        layouts[1], layouts[4], layouts[4], layouts[4], layouts[4]
     }
 }
 for s = 1, screen.count() do
@@ -499,7 +499,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][6] } },
 
     { rule = { class = 'Stardict'},
-      properties = { tag = tags[1][7] } },
+      properties = { tag = tags[1][10] } },
 
     { rule = { class = 'Gnome-terminal'},
       properties = { tag = tags[1][4] } },
