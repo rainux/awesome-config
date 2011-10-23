@@ -547,9 +547,17 @@ client.add_signal('manage', function (c, startup)
     end
 end)
 
+fading_timer = timer({ timeout = 0.3 })
+fading_timer:add_signal('timeout', function()
+   client.focus.opacity = 0.9
+   fading_timer:stop()
+end)
+
 client.add_signal('focus', function(c)
     c.border_color = beautiful.border_focus
     c.opacity = 0.9
+    fading_timer:stop()
+    fading_timer:start()
 end)
 client.add_signal('unfocus', function(c)
     c.border_color = beautiful.border_normal
@@ -559,7 +567,7 @@ end)
 
 
 -- util.run_once('gnome-settings-daemon')
-util.run_once('xcompmgr', 'xcompmgr -c -F')
+util.run_once('xcompmgr', 'xcompmgr -c -f -F')
 util.run_once('ibus-daemon', 'ibus-daemon --xim')
 util.run_once('dropbox', 'dropboxd')
 -- util.run_once('nm-applet')
