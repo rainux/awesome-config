@@ -489,19 +489,19 @@ awful.rules.rules = {
     { rule = { name = 'Preferences' },
       properties = { floating = true } },
 
-    { rule = { class = 'Pidgin'},
+    { rule = { class = 'Pidgin' },
       properties = { tag = tags[1][5], floating = true } },
 
-    { rule = { class = 'Skype'},
+    { rule = { class = 'Skype' },
       properties = { tag = tags[1][5], floating = true } },
 
-    { rule = { class = 'Krusader'},
+    { rule = { class = 'Krusader' },
       properties = { tag = tags[1][6] } },
 
-    { rule = { class = 'Stardict'},
+    { rule = { class = 'Stardict' },
       properties = { tag = tags[1][10] } },
 
-    { rule = { class = 'Gnome-terminal'},
+    { rule = { class = 'Gnome-terminal' },
       properties = { tag = tags[1][4] } },
 
     { rule = { class = 'jd-Main', instance = 'sun-awt-X11-XFramePeer' },
