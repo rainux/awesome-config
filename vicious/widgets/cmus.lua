@@ -28,7 +28,7 @@ local function worker(format, warg)
 
 
     -- Get data from cmus
-    local f = io.popen("cmus-remote -Q")
+    local f = io.popen('cmus-remote -Q || echo "status stopped"')
 
     for line in f:lines() do
         for k, v in string.gmatch(line, "([%w]+)[%s]([%w]+)$") do
