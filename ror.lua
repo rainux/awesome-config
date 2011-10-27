@@ -2,7 +2,7 @@ module('ror')
 
 table5 = {
     ['w'] = {'google-chrome', 'Google-chrome'},
-    ['g'] = {'google-chrome --app="http://mail.google.com/mail/"', 'Gmail', true},
+    ['g'] = {'gnome-terminal --hide-menubar --disable-factory --class Ranger -t Ranger -e ranger', 'Ranger'},
     ['c'] = {'chromium', 'Chromium'},
     ['i'] = {'firefox', 'Firefox'},
     ['t'] = {'wine D:/WinTools/TotalCmd/TotalCmd.exe', 'Wine'},

@@ -58,7 +58,7 @@ tags = {
     names  = { 'main', 'www', 'www', 'terminal', 'im', 'files', 'nana', 'download', 9, 'dict' },
     layouts = {
         layouts[2], layouts[4], layouts[4], layouts[4], layouts[1],
-        layouts[1], layouts[4], layouts[4], layouts[4], layouts[4]
+        layouts[4], layouts[4], layouts[4], layouts[4], layouts[4]
     }
 }
 for s = 1, screen.count() do
@@ -504,6 +504,9 @@ awful.rules.rules = {
     { rule = { class = 'Gnome-terminal' },
       properties = { tag = tags[1][4] } },
 
+    { rule = { class = 'Ranger' },
+      properties = { tag = tags[1][6] } },
+
     { rule = { class = 'jd-Main', instance = 'sun-awt-X11-XFramePeer' },
       properties = { tag = tags[1][8] } },
 
@@ -567,7 +570,7 @@ end)
 
 
 -- util.run_once('gnome-settings-daemon')
-util.run_once('xcompmgr', 'xcompmgr -c -f -F')
+util.run_once('xcompmgr', 'xcompmgr -c -F')
 util.run_once('ibus-daemon', 'ibus-daemon --xim')
 util.run_once('dropbox', 'dropboxd')
 -- util.run_once('nm-applet')
