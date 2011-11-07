@@ -343,12 +343,12 @@ globalkeys = awful.util.table.join(
     awful.key({ 'Mod1' }, 'k', function() awful.client.focus.bydirection('up') end),
     awful.key({ 'Mod1' }, 'l', function() awful.client.focus.bydirection('right') end),
 
-    awful.key({ modkey }, 'Next',  function () awful.client.moveresize( 20,  20, -40, -40) end),
-    awful.key({ modkey }, 'Prior', function () awful.client.moveresize(-20, -20,  40,  40) end),
-    awful.key({ modkey }, 'Down',  function () awful.client.moveresize(  0,  20,   0,   0) end),
-    awful.key({ modkey }, 'Up',    function () awful.client.moveresize(  0, -20,   0,   0) end),
-    awful.key({ modkey }, 'Left',  function () awful.client.moveresize(-20,   0,   0,   0) end),
-    awful.key({ modkey }, 'Right', function () awful.client.moveresize( 20,   0,   0,   0) end),
+    awful.key({ modkey, 'Shift' }, 'Next',  function () awful.client.moveresize( 20,  20, -40, -40) end),
+    awful.key({ modkey, 'Shift' }, 'Prior', function () awful.client.moveresize(-20, -20,  40,  40) end),
+    awful.key({ modkey, 'Shift' }, 'Down',  function () awful.client.moveresize(  0,  20,   0,   0) end),
+    awful.key({ modkey, 'Shift' }, 'Up',    function () awful.client.moveresize(  0, -20,   0,   0) end),
+    awful.key({ modkey, 'Shift' }, 'Left',  function () awful.client.moveresize(-20,   0,   0,   0) end),
+    awful.key({ modkey, 'Shift' }, 'Right', function () awful.client.moveresize( 20,   0,   0,   0) end),
 
     awful.key({ 'Mod1' }, 'p', function()
         awful.client.focus.byidx(-1)
