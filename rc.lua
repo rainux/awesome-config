@@ -566,6 +566,10 @@ client.add_signal('unfocus', function(c)
     c.border_color = beautiful.border_normal
     c.opacity = 0.5
 end)
+
+awesome.add_signal('exit', function()
+    awful.util.spawn('pkill xcompmgr')
+end)
 -- }}}
 
 
