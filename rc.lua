@@ -230,8 +230,6 @@ for s = 1, screen.count() do
         separator,
         volumewidget,
         separator,
-        cmus_widget,
-        separator,
         mypromptbox[s],
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
@@ -240,6 +238,8 @@ for s = 1, screen.count() do
         mysystray,
         separator,
         mytaglist[s],
+        separator,
+        cmus_widget,
         layout = awful.widget.layout.horizontal.rightleft
     }
 end
